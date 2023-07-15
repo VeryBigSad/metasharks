@@ -5,6 +5,14 @@ class StudentGroup(models.Model):
     """
     Модель учебной группы
 
+    name int: Название группы
+    curator int: Куратор группы
+    course int: Направление подготовки
+    students m2m: Список студентов
+    start_date date: Дата начала обучения
+    end_date date: Дата окончания обучения
+    created_at datetime: Дата создания
+    updated_at datetime: Дата последнего обновления
     """
 
     name = models.CharField(max_length=50, verbose_name="Название")
@@ -38,6 +46,14 @@ class Student(models.Model):
     """
     Модель студента
 
+    last_name str: Фамилия
+    first_name str: Имя
+    patronymic str: Отчество
+    date_of_birth date: Дата рождения
+    gender str: Пол
+    study_group m2one: Учебная группа
+    created_at datetime: Дата создания
+    updated_at datetime: Дата последнего обновления
     """
 
     last_name = models.CharField(max_length=50, verbose_name="Фамилия")
