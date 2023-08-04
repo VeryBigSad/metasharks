@@ -30,4 +30,3 @@ class Course(models.Model):
     class Meta:
         verbose_name = "Направление подготовки"
         verbose_name_plural = "Направления подготовки"
-

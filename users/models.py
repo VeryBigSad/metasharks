@@ -27,7 +27,9 @@ class User(OriginalUserModel):
         verbose_name="Тип пользователя",
     )
 
-    patronymic = models.CharField(max_length=50, verbose_name="Отчество", null=True, blank=True)
+    patronymic = models.CharField(
+        max_length=50, verbose_name="Отчество", null=True, blank=True
+    )
     date_of_birth = models.DateField(verbose_name="Дата рождения")
     gender = models.CharField(
         max_length=1, choices=(("M", "Мужской"), ("F", "Женский")), verbose_name="Пол"
@@ -44,7 +46,7 @@ class User(OriginalUserModel):
 
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
 
-    def get_specifics_or_none(self) -> Union[Student, Curator, None]:
+    def get_specifics_or_none(self) -> Union["User", None]:
         """
         Возвращает специфичные данные пользователя или None
 
@@ -62,7 +64,7 @@ class User(OriginalUserModel):
                 return None
         except (Student.DoesNotExist, Curator.DoesNotExist):
             return None
-    
+
     @property
     def is_student(self) -> bool:
         """
@@ -76,7 +78,7 @@ class User(OriginalUserModel):
         Возвращает True, если пользователь - куратор
         """
         return self.user_type == "C"
-    
+
     @property
     def is_admin(self) -> bool:
         """
@@ -90,20 +92,19 @@ class User(OriginalUserModel):
         ordering = ("last_name", "first_name", "patronymic")
 
 
-
 class Student(models.Model):
     """
     Модель студента
 
     study_group m2one: Учебная группа
-    """    
+    """
 
     study_group = models.ForeignKey(
         "students.StudentGroup",
         on_delete=models.SET_NULL,
         verbose_name="Учебная группа",
         null=True,
-        blank=True
+        blank=True,
     )
 
     user = models.OneToOneField(

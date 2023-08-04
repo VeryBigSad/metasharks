@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import List
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -7,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-@m+*!=(pqq9ut$8vd1jnnw+%-&hai5esay4c7p#2df&4%e9e2b"
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS: List[str] = []
 
 
 # Application definition
@@ -22,7 +23,7 @@ INSTALLED_APPS = [
     "courses",
     "students",
     "subjects",
-    "users"
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -71,7 +72,6 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.TokenAuthentication",
     ],
 }
-
 
 
 # user model
