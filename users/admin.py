@@ -14,7 +14,7 @@ class UserAdmin(admin.ModelAdmin):
         "first_name",
         "last_name",
         "user_type",
-        "created_at",
+        "date_joined",
         "updated_at",
     )
     list_filter = ("user_type",)

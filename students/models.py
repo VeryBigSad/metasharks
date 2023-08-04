@@ -17,7 +17,7 @@ class StudentGroup(models.Model):
 
     name = models.CharField(max_length=50, verbose_name="Название")
     curator = models.ForeignKey(
-        "courses.Curator",
+        "users.User",
         on_delete=models.SET_NULL,
         verbose_name="Куратор",
         null=True,
@@ -31,7 +31,7 @@ class StudentGroup(models.Model):
         blank=True,
     )
     students = models.ManyToManyField(
-        "students.Student",
+        "users.User",
         verbose_name="Студенты",
         related_name="student_groups",
         blank=True,

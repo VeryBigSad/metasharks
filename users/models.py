@@ -1,9 +1,9 @@
 from typing import Union
-from django.contrib.auth.models import User as OriginalUserModel
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
 
-class User(OriginalUserModel):
+class User(AbstractUser):
     """
     Модель пользователя, наследованная от модели пользователя Django
 
@@ -33,15 +33,6 @@ class User(OriginalUserModel):
     date_of_birth = models.DateField(verbose_name="Дата рождения")
     gender = models.CharField(
         max_length=1, choices=(("M", "Мужской"), ("F", "Женский")), verbose_name="Пол"
-    )
-
-    # only for students
-    study_group = models.ForeignKey(
-        "students.StudentGroup",
-        on_delete=models.SET_NULL,
-        verbose_name="Учебная группа",
-        null=True,
-        blank=True,
     )
 
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
