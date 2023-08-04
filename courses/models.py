@@ -21,7 +21,7 @@ class Course(models.Model):
         "users.User",
         on_delete=models.PROTECT,
         verbose_name="Куратор",
-        validators=user_is_curator_valdator,
+        validators=[user_is_curator_valdator],
     )
 
     def __str__(self):
