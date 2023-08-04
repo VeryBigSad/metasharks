@@ -2,7 +2,7 @@ from rest_framework.permissions import BasePermission
 from metasharks.constants import SAFE_METHODS
 
 
-class IsCuratorOrReadOnly(BasePermission):
+class IsCuratorOrAdminOrReadOnly(BasePermission):
     """
     The request is authenticated as a curator, or gives read-only permission.
     """
@@ -12,5 +12,6 @@ class IsCuratorOrReadOnly(BasePermission):
             request.method in SAFE_METHODS or (
             request.user and
             request.user.is_authenticated and
-            request.user.is_curator)
+            (request.user.is_curator or request.user.is_admin)
+            )
         )

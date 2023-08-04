@@ -63,6 +63,27 @@ class User(OriginalUserModel):
         except (Student.DoesNotExist, Curator.DoesNotExist):
             return None
     
+    @property
+    def is_student(self) -> bool:
+        """
+        Возвращает True, если пользователь - студент
+        """
+        return self.user_type == "S"
+
+    @property
+    def is_curator(self) -> bool:
+        """
+        Возвращает True, если пользователь - куратор
+        """
+        return self.user_type == "C"
+    
+    @property
+    def is_admin(self) -> bool:
+        """
+        Возвращает True, если пользователь - администратор
+        """
+        return self.user_type == "A"
+
     class Meta:
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
