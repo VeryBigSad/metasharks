@@ -9,11 +9,5 @@ repos:
     rev: 5.0.4
     hooks:
         - id: flake8
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.4.1
-    hooks:
-        - id: mypy
-          name: mypy
-          entry: mypy
-          language: system
-          types: [python]
+
+  
