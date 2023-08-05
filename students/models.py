@@ -35,8 +35,22 @@ class StudentGroup(models.Model):
         verbose_name="Студенты",
         related_name="student_groups",
         blank=True,
+        limit_choices_to={"user_type": "S"},
     )
     start_date = models.DateField(verbose_name="Дата начала обучения")
     end_date = models.DateField(verbose_name="Дата окончания обучения")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
+
+    class Meta:
+        verbose_name = "Учебная группа"
+        verbose_name_plural = "Учебные группы"
+        ordering = ("name",)
+
+        # validate only 20 students max
+        constraints = [
+            models.CheckConstraint(
+                check=models.Q(students__count__lte=20),
+                name="max_students_per_group",
+            )
+        ]
