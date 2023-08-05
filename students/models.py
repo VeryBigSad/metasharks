@@ -18,24 +18,22 @@ class StudentGroup(models.Model):
     name = models.CharField(max_length=50, verbose_name="Название")
     curator = models.ForeignKey(
         "users.User",
-        on_delete=models.SET_NULL,
+        on_delete=models.PROTECT,
         verbose_name="Куратор",
-        null=True,
-        blank=True,
+        limit_choices_to={"user_type": "C"},
     )
     course = models.ForeignKey(
         "courses.Course",
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         verbose_name="Направление подготовки",
-        null=True,
-        blank=True,
     )
     students = models.ManyToManyField(
         "users.User",
         verbose_name="Студенты",
         related_name="student_groups",
-        blank=True,
         limit_choices_to={"user_type": "S"},
+        blank=True,
+        null=True,
     )
     start_date = models.DateField(verbose_name="Дата начала обучения")
     end_date = models.DateField(verbose_name="Дата окончания обучения")
