@@ -8,7 +8,17 @@ from students.serializers import StudentGroupSerializer
 from users.models import User
 
 
-class StudentGroupListView(generics.RetrieveUpdateDestroyAPIView):
+class StudentGroupListView(generics.ListCreateAPIView):
+    """
+    List view for StudentGroup model.
+    """
+
+    queryset = StudentGroup.objects.all()
+    serializer_class = StudentGroupSerializer
+    permission_classes = (IsCuratorOrAdminOrReadOnly,)
+
+
+class StudentGroupDetailView(generics.RetrieveUpdateDestroyAPIView):
     """
     CRUD view for StudentGroup model.
     """
@@ -23,9 +33,9 @@ class AddStudentView(generics.GenericAPIView):
 
     queryset = StudentGroup.objects.all()
     serializer_class = StudentGroupSerializer
+    permission_classes = (IsCuratorOrAdminOrReadOnly,)
 
     def post(self, request, *args, **kwargs):
-        # url = studentgroups/<int:pk>/add-student/<int:student_id>
         student_id = self.kwargs.get("student_id")
         try:
             student = User.objects.get(id=student_id, user_type="S")

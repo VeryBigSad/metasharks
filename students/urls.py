@@ -1,13 +1,13 @@
 from django.urls import path
 
-from students.views import AddStudentView, StudentGroupListView
+from students.views import AddStudentView, StudentGroupListView, StudentGroupDetailView
 
 
 urlpatterns = [
     path("student-groups", StudentGroupListView.as_view(), name="student-group-list"),
     path(
         "student-groups/<int:pk>",
-        StudentGroupListView.as_view(),
+        StudentGroupDetailView.as_view(),
         name="student-group-detail",
     ),
     path(
