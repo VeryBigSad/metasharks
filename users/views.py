@@ -1,6 +1,6 @@
 from rest_framework import generics
+from metasharks.permissions import IsCuratorOrAdminOrReadOnly
 
-from students.permissions import IsCuratorOrAdminOrReadOnly
 from users.models import Student
 from users.serializers import StudentSerializer
 

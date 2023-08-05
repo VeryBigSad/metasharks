@@ -1,9 +1,9 @@
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.response import Response
+from metasharks.permissions import IsCuratorOrAdminOrReadOnly
 
 from students.models import StudentGroup
-from students.permissions import IsCuratorOrAdminOrReadOnly
 from students.serializers import StudentGroupSerializer
 from users.models import User
 
