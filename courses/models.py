@@ -23,6 +23,13 @@ class Course(models.Model):
         verbose_name="Куратор",
         validators=[user_is_curator_valdator],
     )
+    subjects = models.ManyToManyField(
+        "subjects.Subject",
+        verbose_name="Предметы",
+        related_name="courses",
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         return self.name
