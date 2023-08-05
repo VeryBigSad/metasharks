@@ -46,9 +46,9 @@ class StudentGroup(models.Model):
         ordering = ("name",)
 
         # validate only 20 students max
-        constraints = [
-            models.CheckConstraint(
-                check=models.Q(students__count__lte=20),
-                name="max_students_per_group",
-            )
-        ]
+        # constraints = [
+        #     models.CheckConstraint(
+        #         check=models.Q(students__count__lte=20),
+        #         name="max_students_per_group",
+        #     )
+        # ]
