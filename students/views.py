@@ -8,7 +8,7 @@ from students.serializers import StudentGroupSerializer
 from users.models import User
 
 
-class StudentGroupListView(generics.ListCreateAPIView):
+class StudentGroupListView(generics.RetrieveUpdateDestroyAPIView):
     """
     CRUD view for StudentGroup model.
     """

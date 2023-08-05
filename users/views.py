@@ -5,7 +5,7 @@ from users.models import Student
 from users.serializers import StudentSerializer
 
 
-class StudentListView(generics.ListCreateAPIView):
+class StudentListView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
     permission_classes = [IsCuratorOrAdminOrReadOnly]
