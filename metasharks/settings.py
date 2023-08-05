@@ -21,6 +21,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # 3rd party apps
+    "drf_yasg",
+    "rest_framework",
+    # my apps
     "courses.apps.CoursesConfig",
     "students.apps.StudentsConfig",
     "subjects.apps.SubjectsConfig",
