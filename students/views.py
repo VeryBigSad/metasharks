@@ -43,5 +43,11 @@ class AddStudentView(generics.GenericAPIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
 
         student_group = self.get_object()
+        # if more > 20 students in group, return 400
+        if student_group.students.count() >= 20:
+            return Response(
+                {"detail": "This group already has 20 students"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         student_group.students.add(student)
         return Response(status=status.HTTP_200_OK)
