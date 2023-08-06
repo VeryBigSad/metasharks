@@ -13,7 +13,7 @@ services:
     env_file:
       - ./.env
     ports:
-      - "5433:5432"
+      - "5432:5432"
   redis:
     image: redis:alpine
     container_name: metasharks_redis
@@ -23,7 +23,6 @@ services:
   web:
     build:
       context: .
-      dockerfile: dockerfile_for_testing
     container_name: metasharks_django
     command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
@@ -37,7 +36,6 @@ services:
   celery:
     build:
       context: .
-      dockerfile: dockerfile_for_testing
     container_name: metasharks_celery
     command: celery -A metasharks worker --loglevel=INFO
     volumes:
@@ -50,7 +48,6 @@ services:
   celery-beat:
     build:
       context: .
-      dockerfile: dockerfile_for_testing
     container_name: metasharks_beat
     command: celery -A metasharks beat -l info --scheduler django_celery_beat.schedulers.DatabaseScheduler
     volumes:

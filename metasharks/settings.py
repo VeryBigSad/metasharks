@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     # 3rd party apps
     "drf_yasg",
     "rest_framework",
+    "django_celery_beat",
     # my apps
     "courses.apps.CoursesConfig",
     "students.apps.StudentsConfig",
@@ -65,8 +66,15 @@ WSGI_APPLICATION = "metasharks.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        # "ENGINE": "django.db.backends.sqlite3",
+        # "NAME": BASE_DIR / "db.sqlite3",
+        # postgres
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "postgres",
+        "USER": "postgres",
+        "PASSWORD": "postgres",
+        "HOST": "172.17.0.1",
+        "PORT": "5432",
     }
 }
 
@@ -105,8 +113,8 @@ USE_I18N = True
 USE_TZ = True
 
 # Celery configuration
-CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "redis://localhost:6379")
-CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND", "redis://localhost:6379")
+CELERY_BROKER_URL = os.getenv("CELERY_BROKER_URL", "redis://172.17.0.1:32768")
+CELERY_RESULT_BACKEND = os.getenv("CELERY_RESULT_BACKEND", "redis://172.17.0.1:32768")
 
 
 STATIC_URL = "static/"
