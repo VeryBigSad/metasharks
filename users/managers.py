@@ -1,7 +1,9 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.db.models.query import QuerySet
+from typing import TYPE_CHECKING, Type
 
-from users.models import User
+if TYPE_CHECKING:
+    from .models import User
 
 
 class UserManager(BaseUserManager):
@@ -39,7 +41,9 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email: str, password: str, **extra_fields) -> "User":
+    def create_superuser(
+        self, email: str, password: str, **extra_fields
+    ) -> Type["User"]:
         """Create and save a SuperUser with the given email and password.
 
         Args:
