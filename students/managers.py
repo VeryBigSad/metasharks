@@ -4,7 +4,7 @@ from rest_framework.generics import QuerySet
 
 
 class StudentGroupManager(models.Manager):
-    def get_data_for_students_report(self) -> QuerySet:
+    def get_data_for_report(self) -> QuerySet:
         """Get data for students report
 
         Returns:

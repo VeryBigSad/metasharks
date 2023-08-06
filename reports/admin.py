@@ -10,4 +10,3 @@ class ReportAdmin(admin.ModelAdmin):
     search_fields = ("owner__username",)
     readonly_fields = ("state", "file", "created_at")
     fields = ("owner", "state", "file", "created_at")
-    ordering = ("created_at",)

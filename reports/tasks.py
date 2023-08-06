@@ -1,4 +1,5 @@
 import pandas as pd
+from courses.models import Course
 from reports.models import Report
 
 from metasharks.celery import app
@@ -13,30 +14,35 @@ def create_report(report_id):
         report_id (int): report ID that needs to have it's excel file generated
     """
     report = Report.objects.get(id=report_id)
-    report.state = "done"
 
-    queryset = StudentGroup.objects.get_data_for_students_report()
+    queryset = StudentGroup.objects.get_data_for_report()
     data = list(queryset.values())  # Convert queryset to a list of dictionaries
     # make datetimes timezone unaware
     for item in data:
         item["created_at"] = item["created_at"].replace(tzinfo=None)
         item["updated_at"] = item["updated_at"].replace(tzinfo=None)
-    df = pd.DataFrame(data)
 
-    excel_file = f"report_{report.pk}.xlsx"
-    # make it several pages, first one for all, then for each model
+    excel_file = f"media/reports/report_{report.pk}.xlsx"
     with pd.ExcelWriter(excel_file) as writer:
-        df.to_excel(writer, sheet_name="all", index=False, engine="openpyxl")
+        # all groups
+        df = pd.DataFrame(data)
+        df.to_excel(writer, sheet_name="All Groups", index=False, engine="openpyxl")
+
+        courses = list(Course.objects.get_data_for_report())
+        df = pd.DataFrame(courses)
+        df.to_excel(writer, sheet_name="Courses", index=False, engine="openpyxl")
+
+        # individual student groups
         for studentgroup in queryset:
-            values = list(studentgroup.students.all().values())
-            for item in values:
-                item["date_joined"] = item["date_joined"].replace(tzinfo=None)
-                item["updated_at"] = item["updated_at"].replace(tzinfo=None)
+            values = list(studentgroup.students.get_data_for_report())
             df = pd.DataFrame(values)
             df.to_excel(
-                writer, sheet_name=studentgroup.name, index=False, engine="openpyxl"
+                writer,
+                sheet_name=f"Group {studentgroup.name}",
+                index=False,
+                engine="openpyxl",
             )
-    # df.to_excel(excel_file, index=False, engine='openpyxl')
-    report.file = excel_file
+
+    report.file = f"reports/report_{report.pk}.xlsx"
     report.state = "done"
     report.save()

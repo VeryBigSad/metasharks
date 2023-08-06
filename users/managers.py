@@ -3,13 +3,13 @@ from django.db.models.query import QuerySet
 
 
 class UserManager(models.Manager):
-    def get_data_for_students_report(self) -> QuerySet:
-        """Get data for students report
+    def get_data_for_report(self) -> QuerySet:
+        """Get data for report
 
         Returns:
             QuerySet: QuerySet of students data
         """
-        return self.get_queryset().only(
+        return self.get_queryset().values(
             "id",
             "first_name",
             "last_name",

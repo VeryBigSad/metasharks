@@ -1,5 +1,7 @@
 from django.db import models
 
+from students.managers import StudentGroupManager
+
 
 class StudentGroup(models.Model):
     """
@@ -40,15 +42,9 @@ class StudentGroup(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
 
+    objects = StudentGroupManager()
+
     class Meta:
         verbose_name = "Учебная группа"
         verbose_name_plural = "Учебные группы"
         ordering = ("name",)
-
-        # validate only 20 students max
-        # constraints = [
-        #     models.CheckConstraint(
-        #         check=models.Q(students__count__lte=20),
-        #         name="max_students_per_group",
-        #     )
-        # ]

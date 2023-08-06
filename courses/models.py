@@ -1,5 +1,7 @@
 from django.db import models
 
+from courses.managers import CoursesManager
+
 
 class Course(models.Model):
     """
@@ -28,6 +30,8 @@ class Course(models.Model):
         blank=True,
         null=True,
     )
+
+    objects = CoursesManager()
 
     def __str__(self):
         return self.name
