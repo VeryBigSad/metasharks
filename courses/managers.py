@@ -1,4 +1,5 @@
 from django.db.models import F, Manager
+from django.db.models.functions import Concat
 
 
 class CoursesManager(Manager):
@@ -6,9 +7,11 @@ class CoursesManager(Manager):
         return (
             self.get_queryset()
             .annotate(
-                curator_name=F("curator__first_name")
-                + F("curator__last_name")
-                + F("curator__patronymic"),
+                curator_name=Concat(
+                    F("curator__first_name"),
+                    F("curator__last_name"),
+                    F("curator__patronymic"),
+                )
             )
             .values("name", "description", "curator_id", "curator_name")
         )
