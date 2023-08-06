@@ -30,7 +30,9 @@ class User(AbstractUser):
     patronymic = models.CharField(
         max_length=50, verbose_name="Отчество", null=True, blank=True
     )
-    date_of_birth = models.DateField(verbose_name="Дата рождения")
+    date_of_birth = models.DateField(
+        verbose_name="Дата рождения", null=True, blank=True
+    )
     gender = models.CharField(
         max_length=1, choices=(("M", "Мужской"), ("F", "Женский")), verbose_name="Пол"
     )
