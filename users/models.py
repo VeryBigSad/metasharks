@@ -2,6 +2,8 @@ from typing import Union
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from users.managers import UserManager
+
 
 class User(AbstractUser):
     """
@@ -38,6 +40,8 @@ class User(AbstractUser):
     )
 
     updated_at = models.DateTimeField(auto_now=True, verbose_name="Дата обновления")
+
+    objects = UserManager()
 
     def get_specifics_or_none(self) -> Union["User", None]:
         """

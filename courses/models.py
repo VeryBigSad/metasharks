@@ -1,7 +1,5 @@
 from django.db import models
 
-from courses.validators import user_is_curator_valdator
-
 
 class Course(models.Model):
     """
@@ -21,7 +19,7 @@ class Course(models.Model):
         "users.User",
         on_delete=models.PROTECT,
         verbose_name="Куратор",
-        validators=[user_is_curator_valdator],
+        limit_choices_to={"user_type": "C"},
     )
     subjects = models.ManyToManyField(
         "subjects.Subject",

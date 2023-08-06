@@ -19,3 +19,8 @@ class Report(models.Model):
     )
     file = models.FileField(upload_to="reports/", verbose_name="Файл")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+
+    class Meta:
+        verbose_name = "Отчет"
+        verbose_name_plural = "Отчеты"
+        ordering = ("-created_at",)
