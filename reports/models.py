@@ -17,7 +17,12 @@ class Report(models.Model):
     state = models.CharField(
         max_length=50, verbose_name="Статус", choices=STATES, default="in_progress"
     )
-    file = models.FileField(upload_to="reports/", verbose_name="Файл")
+    file = models.FileField(
+        upload_to="reports/",
+        verbose_name="Файл",
+        null=True,
+        blank=True,
+    )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
 
     class Meta:
